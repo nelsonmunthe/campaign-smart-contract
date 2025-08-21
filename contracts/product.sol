@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0
 
 pragma solidity >=0.7.0 <0.9.0;
+import "hardhat/console.sol";
 
 contract Products {
+    uint productId = 0;
     struct Product {
         uint id;
         string name;
@@ -14,7 +16,7 @@ contract Products {
 
     address public  owner;
 
-    Product[] public  products;
+    mapping(string => Product) public  products;
 
     constructor() {
         owner = msg.sender;
@@ -25,9 +27,17 @@ contract Products {
         _;
     }
 
+    function validateIsProductExist(string memory _a, string memory _b) private pure returns(bool) {
+        return keccak256(abi.encodePacked(_a)) == keccak256(abi.encodePacked(_b));
+    }
+
     function createNewProduct(string memory name, string memory description, uint quantity, uint256 price) onlyOwner public  {
+        Product memory isProductExist = products[name];
+
+        require(!validateIsProductExist(name, isProductExist.name), "Product already exist");
+        
         Product memory newProduct = Product({
-            id: products.length + 1,
+            id: productId++,
             name: name,
             description: description,
             quantity: quantity,
@@ -35,21 +45,24 @@ contract Products {
             state: true
         });
 
-        products.push(newProduct);
+        products[name] = newProduct;
+        productId++;
     }
 
-    function addQuantityProduct(uint index, uint quantity) public  {
-        products[index].quantity = products[index].quantity +  quantity;
+    function purchaseProduct(string memory name, uint quantity)  public  {
+        products[name].quantity -= quantity;
     }
 
-    function inactiveProduct(uint index) onlyOwner public  {
-        require(products[index].state == false, "Product already inactive");
-        products[index].state = false;
+    function addQuantityProduct(string memory name, uint quantity) public  {
+        products[name].quantity += quantity;
     }
 
-    function activeProduct(uint index) onlyOwner public  {
-        require(products[index].state == true, "Product already active");
-        products[index].state = true;
+    function inactiveProduct(string memory name) onlyOwner public  {
+        products[name].state =  false;
+    }
+
+    function activeProduct(string memory name) onlyOwner public  {
+       products[name].state =  true;
     }
     
 }
