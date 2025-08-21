@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 
 pragma solidity >=0.7.0 <0.9.0;
-import "hardhat/console.sol";
 
 contract Products {
     uint productId = 0;
@@ -50,10 +49,12 @@ contract Products {
     }
 
     function purchaseProduct(string memory name, uint quantity)  public  {
+        Product memory product = products[name];
+        require(product.quantity >= quantity, "Quantity not enough");
         products[name].quantity -= quantity;
     }
 
-    function addQuantityProduct(string memory name, uint quantity) public  {
+    function addQuantityProduct(string memory name, uint quantity) onlyOwner public  {
         products[name].quantity += quantity;
     }
 
