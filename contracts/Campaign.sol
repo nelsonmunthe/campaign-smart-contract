@@ -20,4 +20,9 @@ contract Campaign {
         minimumContribution = minimum;
         manager = msg.sender;
     }
+
+    function contribute() public  payable  {
+        require(msg.value == minimumContribution);
+        approvers.push(msg.sender);
+    }
 }
