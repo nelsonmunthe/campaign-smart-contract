@@ -1,0 +1,51 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Campaign.sol": "Campaign"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Campaign.sol": {
+			"keccak256": "0xfd7819bc0aa7b717997b68760a15193482c7f3c0b7959055d4cc94724272962a",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://99d83ece5dd5d021971d0342b35de211747c0f3eea012a117aee4f4b3916cf30",
+				"dweb:/ipfs/QmdMtq1uSzXcWywU6dsGzPZkj6JdXg6ojcd5XtpVq7UsKm"
+			]
+		}
+	},
+	"version": 1
+}
